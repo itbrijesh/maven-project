@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mulesoft.training</groupId>
-	<artifactId>maven-project</artifactId>
+	<artifactId>maven-project-brijesh</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>mule</packaging> <!-- can make it jar file instead of mule -->
 	<name>Mule maven-project Application</name>
@@ -19,10 +19,39 @@
     	<!-- Properties created for Derby & ActiveMQ -->
     	<derby.version>10.14.1.0</derby.version>
     	<activemq.version>5.15.2</activemq.version>
+    	<cloudhub.uid>bprajapati</cloudhub.uid>
+    	<cloudhub.pwd>junk</cloudhub.pwd>
 	</properties>
 
 	<build>
 		<plugins>
+		
+		<!-- Plugins to deploy the code in cloudhub to automate the process -->
+			<plugin>
+			    <groupId>org.mule.tools.maven</groupId>
+			    <artifactId>mule-maven-plugin</artifactId>
+			    <version>2.0</version>
+			    <configuration>
+			        <deploymentType>cloudhub</deploymentType>
+			        <muleVersion>${mule.version}</muleVersion>
+			        <username>${cloudhub.uid}</username>
+			        <password>${cloudhub.pwd}</password>
+				      <workerType>Micro</workerType>
+			        <redeploy>true</redeploy>
+			        <environment>Sandbox</environment>
+			    </configuration>
+			    <executions>
+			        <execution>
+			            <id>deploy</id>
+			            <phase>deploy</phase>
+			            <goals>
+			                <goal>deploy</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
+		
+		
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-app-maven-plugin</artifactId>
